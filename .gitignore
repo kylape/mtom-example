@@ -1,0 +1,5 @@
+target/
+tags
+cscope.*
+*.log
+*.log.*
