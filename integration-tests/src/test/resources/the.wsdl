@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:ns1="http://schemas.xmlsoap.org/wsdl/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mtom.gss.redhat.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="HashServerImplService" targetNamespace="http://mtom.gss.redhat.com/">
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://mtom.gss.redhat.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://mtom.gss.redhat.com/" version="1.0">
+      <xs:element name="calcHash" type="tns:calcHash"/>
+      <xs:element name="calcHashResponse" type="tns:calcHashResponse"/>
+      <xs:complexType name="calcHash">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dataType" type="tns:contentDataType"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="contentDataType">
+        <xs:sequence>
+          <xs:element xmlns:ns1="http://www.w3.org/2005/05/xmlmime" name="contentData" ns1:expectedContentTypes="application/octet-stream" type="xs:base64Binary"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="calcHashResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="calcHashResponse">
+    <wsdl:part element="tns:calcHashResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="calcHash">
+    <wsdl:part element="tns:calcHash" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HashServer">
+    <wsdl:operation name="calcHash">
+      <wsdl:input message="tns:calcHash" name="calcHash">
+    </wsdl:input>
+      <wsdl:output message="tns:calcHashResponse" name="calcHashResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HashServerImplServiceSoapBinding" type="tns:HashServer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="calcHash">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="calcHash">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="calcHashResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HashServerImplService">
+    <wsdl:port binding="tns:HashServerImplServiceSoapBinding" name="HashServerImplPort">
+      <soap:address location="http://localhost:8080/mtom-endpoint/HashServerImpl"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

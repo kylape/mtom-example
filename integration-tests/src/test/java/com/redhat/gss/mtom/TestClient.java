@@ -31,7 +31,8 @@ public class TestClient {
 
   @Test
   public void testEndpoint() throws Exception {
-    URL wsdl        = new URL("http://localhost:8080/mtom-endpoint/HashServerImpl?wsdl");
+    // URL wsdl        = new URL("http://localhost:8080/mtom-endpoint/HashServerImpl?wsdl");
+    URL wsdl        = getClass().getResource("/the.wsdl");
     QName serviceNS = new QName("http://mtom.gss.redhat.com/", "HashServerImplService");
     QName portNS    = new QName("http://mtom.gss.redhat.com/", "HashServerImplPort");
 
