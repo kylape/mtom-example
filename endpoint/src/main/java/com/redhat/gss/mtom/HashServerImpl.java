@@ -38,11 +38,6 @@ public class HashServerImpl implements HashServer {
       DataHandler dh = data.getContentData();
       InputStream input = dh.getInputStream();
 
-      // Method m = input.getClass().getDeclaredMethod("getInputStream");
-      // Object delegate = m.invoke(input);
-      // delegate = m.invoke(delegate);
-      // log.info("Delegate InputStream: " + delegate.getClass().getName());
-
       MessageDigest digest = MessageDigest.getInstance("MD5");
       byte[] bb = new byte[2048];
       int totalLength = 0;
