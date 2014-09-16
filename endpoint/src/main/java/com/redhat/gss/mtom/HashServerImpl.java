@@ -1,21 +1,19 @@
 package com.redhat.gss.mtom;
 
 import java.io.InputStream;
-import javax.xml.ws.soap.MTOM;
-import javax.activation.DataHandler;
-import javax.jws.WebService;
-import java.security.MessageDigest;
-import org.jboss.logging.Logger;
-import java.math.BigInteger;
-import org.apache.cxf.annotations.EndpointProperty;
-import org.apache.cxf.annotations.EndpointProperties;
 import java.lang.reflect.Method;
-import javax.xml.ws.WebServiceContext;
-import javax.annotation.Resource;
-import javax.xml.ws.handler.MessageContext;
-import org.apache.cxf.message.Message;
-import org.apache.cxf.jaxws.context.WrappedMessageContext;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.Collection;
+import javax.activation.DataHandler;
+import javax.annotation.Resource;
+import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.soap.MTOM;
+import org.apache.cxf.attachment.AttachmentDataSource;
+import org.apache.cxf.message.Message;
+import org.jboss.logging.Logger;
 
 @MTOM
 @WebService(endpointInterface="com.redhat.gss.mtom.HashServer")
@@ -27,15 +25,17 @@ public class HashServerImpl implements HashServer {
 
   public String calcHash(ContentDataType data) throws Exception {
     try {
-      Message message = ((WrappedMessageContext)ctx.getMessageContext()).getWrappedMessage();
-      Collection c = message.getAttachments();
-      for(Object o : c) {
-        //Don't do anything
-        //Just iterating through the attachments will force CXF to cache them
-        //Which will make it analyze the size vs threshold
-      }
+      // Message message = ((WrappedMessageContext)ctx.getMessageContext()).getWrappedMessage();
+      // Collection c = message.getAttachments();
+      // for(Object o : c) {
+      //   //Don't do anything
+      //   //Just iterating through the attachments will force CXF to cache them
+      //   //Which will make it analyze the size vs threshold
+      // }
 
       DataHandler dh = data.getContentData();
+      AttachmentDataSource ads = (AttachmentDataSource)dh.getDataSource();
+      ads.hold();
       InputStream input = dh.getInputStream();
 
       MessageDigest digest = MessageDigest.getInstance("MD5");

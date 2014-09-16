@@ -41,14 +41,14 @@ public class TestClient {
 
     SOAPBinding binding = (SOAPBinding)((BindingProvider)port).getBinding();
     binding.setMTOMEnabled(true);
-    // DataHandler dh = new DataHandler(new URLDataSource(getClass().getResource("/jboss-eap-6.2.3-patch.zip")));
+    // DataHandler dh = new DataHandler(new URLDataSource(getClass().getResource("/jboss-eap-6.2.4-full-build.zip")));
     DataHandler dh = new DataHandler(new URLDataSource(getClass().getResource("/shadowman.jpg")));
     ContentDataType data = new ContentDataType();
     data.setContentData(dh);
 
     String hash = port.calcHash(data);
 
-    // assertEquals("Hash not equal", calcHash(getClass().getResource("/jboss-eap-6.2.3-patch.zip")), hash);
+    // assertEquals("Hash not equal", calcHash(getClass().getResource("/jboss-eap-6.2.4-full-build.zip")), hash);
     assertEquals("Hash not equal", calcHash(getClass().getResource("/shadowman.jpg")), hash);
   }
 

@@ -7,20 +7,6 @@
   <version>1.0-SNAPSHOT</version>
   <name>MTOM Example</name>
   <url>http://maven.apache.org</url>
-  <properties>
-    <version.eap6>6.2.4.GA</version.eap6>
-  </properties>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.jboss.bom</groupId>
-        <artifactId>eap6-supported-artifacts</artifactId>
-        <version>${version.eap6}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <modules>
     <module>endpoint</module>
   </modules>
