@@ -15,9 +15,11 @@ import org.apache.cxf.attachment.AttachmentDataSource;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.Message;
 import org.jboss.logging.Logger;
+import javax.jws.HandlerChain;
 
 @MTOM
 @WebService(endpointInterface="com.redhat.gss.mtom.HashServer")
+@HandlerChain(file="/handlers.xml")
 public class HashServerImpl implements HashServer {
 
   private static Logger log = Logger.getLogger(HashServer.class);
@@ -27,6 +29,7 @@ public class HashServerImpl implements HashServer {
 
   public String calcHash(ContentDataType data) throws Exception {
     try {
+      /*
       Message message = ((WrappedMessageContext)ctx.getMessageContext()).getWrappedMessage();
       Collection c = message.getAttachments();
       for(Object o : c) {
@@ -34,10 +37,11 @@ public class HashServerImpl implements HashServer {
         //Just iterating through the attachments will force CXF to cache them
         //Which will make it analyze the size vs threshold
       }
+      */
 
+      log.info("Sleeping...");
+      Thread.sleep(10000);
       DataHandler dh = data.getContentData();
-      AttachmentDataSource ads = (AttachmentDataSource)dh.getDataSource();
-      ads.hold();
       InputStream input = dh.getInputStream();
 
       MessageDigest digest = MessageDigest.getInstance("MD5");

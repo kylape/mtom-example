@@ -72,6 +72,7 @@ public class TestClient {
   public void testProvider() {
     Provider p = Provider.provider();
     String pName = p.getClass().getName();
-    assertEquals("JBossWS is not being used: " + pName, "org.jboss.wsf.stack.cxf.client.ProviderImpl", pName);
+    boolean correctProvider = pName.equals("org.jboss.wsf.stack.cxf.client.ProviderImpl") || pName.equals("org.apache.cxf.jaxws.spi.ProviderImpl");
+    assertTrue("JBossWS is not being used: " + pName, correctProvider);
   }
 }
